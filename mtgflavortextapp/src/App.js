@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Helmet from "react-helmet";
+//import Helmet from "react-helmet";
 import { Switch, Route } from "react-router-dom";
 
 import Home from "./routes/home";
