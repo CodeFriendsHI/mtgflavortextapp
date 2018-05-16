@@ -2,6 +2,8 @@
     border: 2px solid red;
     min-height: 600px;
     transition: all .3s ease-in-out; 
+    display: flex;
+    justify-content: center;
 }
 
 .card:hover {
