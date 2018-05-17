@@ -1,6 +1,6 @@
 .cards {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 2em;
-    margin: 10em 0;
+    grid-gap: 8em;
+    margin: 10em 3em;
 }

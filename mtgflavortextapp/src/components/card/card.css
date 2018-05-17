@@ -1,12 +1,25 @@
 .card {
-    border: 2px solid red;
-    min-height: 600px;
+    border: 5px solid black;
+    border-radius: 10px;
+    min-height: 685px;
     transition: all .3s ease-in-out; 
     display: flex;
     justify-content: center;
+    /* transform: rotateY(90deg) */
 }
 
 .card:hover {
     transform: scale(1.1);
-    background: green;
+    background: transparent url("/cardback.jpg") no-repeat center    
+}
+
+.card__back {
+    border: 5px solid black;
+    border-radius: 10px;
+    background: transparent url("/cardback.jpg") no-repeat center
+}
+
+.card__front {
+    border: 5px solid black;
+    border-radius: 10px;
 }
