@@ -1,0 +1,14 @@
+button {
+  padding: 2em;
+  border-radius: 50%;
+  border: 5px solid black;
+}
+button:focus {outline:0;}
+
+.mainpage__button {
+  position: absolute;
+  width: 100px;
+  top: 45%;
+  left: 50%;
+  margin: -15px 0px 0px -50px;
+}
