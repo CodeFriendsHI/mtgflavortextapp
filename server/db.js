@@ -39,13 +39,28 @@ async function query(sqlQuery, values = []) {
  */
 async function addCard(id) {
 
-    const sqlQuery = 'INSERT INTO CARD (cardID) VALUES($1)';
+    const sqlQuery = 'INSERT INTO CARDS (cardID) VALUES($1)';
 
     const result = await query(sqlQuery, [xss(id)]);
 
     return result;
 }
 
+/**
+ *  get all cards
+ * 
+ * @returns {Promise} Promise representing all the cards
+ */
+async function getCards() {
+
+    const sqlQuery = 'SELECT * FROM CARDS';
+
+    const result = await query(sqlQuery, []);
+
+    return result;
+}
+
 module.exports = {
     addCard,
+    getCards,
 };

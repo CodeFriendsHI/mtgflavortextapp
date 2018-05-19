@@ -1,3 +1,4 @@
 CREATE TABLE cards (
-    cardID int PRIMARY KEY
+    cardID int,
+    setID VARCHAR(64)
 )
