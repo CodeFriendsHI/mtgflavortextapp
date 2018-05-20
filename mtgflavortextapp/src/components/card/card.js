@@ -9,12 +9,20 @@ export default class Card extends Component {
     loading: true,
     card: null,
     image: "/cardback.jpg",
+    error: false,
   };
 
-  onClick = () => {
-    this.setState({
-      fetching: true
-    });
+  onClick = async () => {
+    const { collector_number, set } = this.state.card;
+
+    this.setState({ fetching: true });
+    try {
+      await api.post(collector_number, set);
+    } catch(error) {
+      this.setState({
+        error: false,
+      });
+    }
   };
 
   async componentDidMount() {
@@ -22,24 +30,23 @@ export default class Card extends Component {
       await this.fetchData();
     } catch (error) {
       this.setState({
-        error: true,
+        error: true
       });
     }
   }
 
   async componentDidUpdate(prevProps, prevState) {
-    if (this.state.fetching !== prevState.fetching ) {
+    if (this.state.fetching !== prevState.fetching) {
       this.setState({ loading: true });
 
       try {
         await this.fetchData();
       } catch (error) {
         this.setState({
-          error: true,
+          error: true
         });
       }
     }
-
   }
 
   handleImageLoad = () => {
@@ -65,7 +72,7 @@ export default class Card extends Component {
   };
 
   render() {
-    const { fetching, card, loading, error} = this.state;
+    const { fetching, card, loading, error } = this.state;
 
     if (fetching) {
       return (
@@ -75,8 +82,8 @@ export default class Card extends Component {
       );
     }
 
-    if(error) {
-      return <div>Big error!</div>
+    if (error) {
+      return <div>Big error!</div>;
     }
 
     const { flavor_text, image_uris, name } = card;

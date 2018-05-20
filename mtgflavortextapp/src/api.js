@@ -10,4 +10,18 @@ async function get(endpoint) {
   return { result, status: response.status };
 }
 
-export default { get };
+async function post(card, set){
+
+  const url = `http://127.0.0.1:3001/`;
+
+  const options = {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({card, set}),
+  }
+
+  const response = await fetch(url, options);
+
+}
+
+export default { get, post };
