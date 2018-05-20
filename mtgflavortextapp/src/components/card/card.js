@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
-import './card.css';
+import React, { Component } from "react";
+import "./card.css";
 
-import api from '../../api';
+import api from "../../api";
 
 export default class Card extends Component {
-
   state = {
     fetching: true,
     loading: true,
@@ -12,67 +11,91 @@ export default class Card extends Component {
     image: "/cardback.jpg",
   };
 
+  onClick = () => {
+    this.setState({
+      fetching: true
+    });
+  };
+
   async componentDidMount() {
     try {
-      while (true) {
-        const data = await api.get('random');
-        const { result } = data;
-  
-        if (!result.flavor_text) {
-          continue;
-        }
-
-        this.setState({
-          fetching: false,
-          card: result,
-        });
-
-        break
-      }
-
+      await this.fetchData();
     } catch (error) {
-      console.error(error);
+      this.setState({
+        error: true,
+      });
     }
+  }
+
+  async componentDidUpdate(prevProps, prevState) {
+    if (this.state.fetching !== prevState.fetching ) {
+      this.setState({ loading: true });
+
+      try {
+        await this.fetchData();
+      } catch (error) {
+        this.setState({
+          error: true,
+        });
+      }
+    }
+
   }
 
   handleImageLoad = () => {
     this.setState({ loading: false });
-  }
+  };
+
+  fetchData = async () => {
+    while (true) {
+      const data = await api.get("random");
+      const { result } = data;
+
+      if (!result.flavor_text) {
+        continue;
+      }
+
+      this.setState({
+        fetching: false,
+        card: result
+      });
+
+      break;
+    }
+  };
 
   render() {
-    const { fetching, card, loading } = this.state;
+    const { fetching, card, loading, error} = this.state;
 
-    const { onClick } = this.props;
-    
     if (fetching) {
       return (
-        <div className='card'>
+        <div className="card">
           <img src="/cardback.jpg" alt="" />
         </div>
-      )
+      );
     }
-    
+
+    if(error) {
+      return <div>Big error!</div>
+    }
+
     const { flavor_text, image_uris, name } = card;
 
-    const imgSrc = loading ? '/cardback.jpg' : image_uris.border_crop;
-    const cardClass = loading ? 'card' : 'card doaflip';
+    const imgSrc = loading ? "/cardback.jpg" : image_uris.border_crop;
+    const cardClass = loading ? "card" : "card doaflip";
 
-    const clickable = loading ? null : onClick;
+    const clickAble = loading ? null : this.onClick;
 
     return (
-      <div className={cardClass} onClick={clickable} >
+      <div className={cardClass} onClick={clickAble}>
+        <img className="card__front" src={imgSrc} alt="" />
         <img
-          className='card__front'
-          src={imgSrc}
-          alt=''
-        />
-        <img
-          className='card__back'
+          className="card__back"
           src={image_uris.border_crop}
-          alt=''
+          alt=""
           onLoad={this.handleImageLoad}
         />
       </div>
-    )
+    );
   }
 }
