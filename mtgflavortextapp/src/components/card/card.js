@@ -36,12 +36,13 @@ export default class Card extends Component {
     }
   }
 
-  handleImageLoad() {
-    console.log('Loaded!');
+  handleImageLoad = () => {
+    console.log('loaded!');
+    this.setState({ loading: false });
   }
 
   render() {
-    const { fetching, card } = this.state;
+    const { fetching, card, loading } = this.state;
     
     if (fetching) {
       return (
@@ -53,11 +54,20 @@ export default class Card extends Component {
     
     const { flavor_text, image_uris, name } = card;
 
+    const imgSrc = loading ? '/cardback.jpg' : image_uris.border_crop;
+    const cardClass = loading ? 'card' : 'card doaflip';
+
     return (
-      <div className='card'>
+      <div className={cardClass}>
         <img
+          className='card__front'
+          src='/cardback.jpg'
+          alt=''
+        />
+        <img
+          className='card__back'
           src={image_uris.border_crop}
-          alt=""
+          alt=''
           onLoad={this.handleImageLoad}
         />
       </div>

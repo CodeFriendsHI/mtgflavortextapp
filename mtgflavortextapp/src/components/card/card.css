@@ -5,7 +5,6 @@
     transition: all .3s ease-in-out; 
     display: flex;
     justify-content: center;
-    /* transform: rotateY(90deg) */
 }
 
 .card:hover {
@@ -13,13 +12,19 @@
     background: transparent url("/cardback.jpg") no-repeat center    
 }
 
-.card__back {
-    border: 5px solid black;
-    border-radius: 10px;
-    background: transparent url("/cardback.jpg") no-repeat center
+.card__front {
+
 }
 
-.card__front {
-    border: 5px solid black;
-    border-radius: 10px;
+.doaflip {
+    transform: rotateY(360deg);
+}
+
+.card__back {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    /* display: none; */
 }
