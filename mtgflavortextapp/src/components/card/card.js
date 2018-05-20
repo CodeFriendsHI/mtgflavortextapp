@@ -61,7 +61,7 @@ export default class Card extends Component {
       <div className={cardClass}>
         <img
           className='card__front'
-          src='/cardback.jpg'
+          src={imgSrc}
           alt=''
         />
         <img
