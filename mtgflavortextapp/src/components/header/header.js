@@ -15,6 +15,8 @@ export default class Header extends Component {
         <ReactCSSTransitionGroup
           transitionAppear={true}
           transitionAppearTimeout={1000}
+          transitionLeaveTimeout={500}
+          transitionEnterTimeout={500}
           transitionName={{
             appear: "appear",
             appearActive: "appearActive"

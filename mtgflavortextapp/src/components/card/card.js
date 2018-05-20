@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import { CSSTransition } from 'react-transition-group';
+import React, { Component } from 'react';
 import './card.css';
 
 import api from '../../api';
@@ -37,12 +36,13 @@ export default class Card extends Component {
   }
 
   handleImageLoad = () => {
-    console.log('loaded!');
     this.setState({ loading: false });
   }
 
   render() {
     const { fetching, card, loading } = this.state;
+
+    const { onClick } = this.props;
     
     if (fetching) {
       return (
@@ -57,8 +57,10 @@ export default class Card extends Component {
     const imgSrc = loading ? '/cardback.jpg' : image_uris.border_crop;
     const cardClass = loading ? 'card' : 'card doaflip';
 
+    const clickable = loading ? null : onClick;
+
     return (
-      <div className={cardClass}>
+      <div className={cardClass} onClick={clickable} >
         <img
           className='card__front'
           src={imgSrc}
