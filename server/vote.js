@@ -1,62 +1,67 @@
-
 /* packages */
 const express = require("express");
 
 const vote = express.Router();
 const xss = require("xss");
 const db = require("./db");
+const mtgValidate = require("./validateMagic");
 
 /* validaton and sanitize */
 
-const {
-  body,
-  validationResult,
-} = require('express-validator/check');
+const { body, validationResult } = require("express-validator/check");
 
-const {
-  sanitize
-} = require('express-validator/filter');
+const { sanitize } = require("express-validator/filter");
 
 const bodyValidation = [
-  body('card')
-  .exists().withMessage('No card found!'),
-  body('set').exists().withMessage('No set found!'),
+    body("card")
+        .exists()
+        .withMessage("No card found!"),
+    body("set")
+        .exists()
+        .withMessage("No set found!"),
 
-  sanitize('card').trim(),
-  sanitize('set').trim(),
+    sanitize("card").trim(),
+    sanitize("set").trim()
 ];
 
-
 function catchErrors(fn) {
-  return (req, res, next) => fn(req, res, next).catch(next);
+    return (req, res, next) => fn(req, res, next).catch(next);
 }
 
 async function getAll(req, res, next) {
-  const cards = await db.getCards();
+    const cards = await db.getCards();
 
-  if (cards.rows.length === 0) {
-    next();
-  } else {
-    res.status(200).json(cards);
-  }
+    if (cards.rows.length === 0) {
+        next();
+    } else {
+        res.status(200).json(cards);
+    }
 }
 
 async function addCard(req, res, next) {
-  const {
-    card,
-    set,
-  } = req.body;
+    const { card, set } = req.body;
 
-  const errors = validationResult(req);
+    const errors = validationResult(req);
 
-  console.info(errors.array());
-  const add = await db.addCard(xss(card), xss(set));
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ error: "error" });
+    }
 
-  res.status(200).json({});
+    const validate = await mtgValidate.validate(set, card);
+
+    if (validate) {
+        const add = await db.addCard(xss(card), xss(set));
+
+        return res.status(200).json({ status: "success" });
+    } else {
+        return res.status(401).json({ error: "validation error" });
+    }
 }
 
-vote.get("/", (req, res) => {
-  res.status(200).json({});
+vote.get("/", async (req, res) => {
+    mtgValidate.validate();
+
+    res.status(200).send("hello");
 });
 
 vote.post("/", bodyValidation, catchErrors(addCard));
