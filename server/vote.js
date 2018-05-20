@@ -58,12 +58,6 @@ async function addCard(req, res, next) {
     }
 }
 
-vote.get("/", async (req, res) => {
-    mtgValidate.validate();
-
-    res.status(200).send("hello");
-});
-
 vote.post("/", bodyValidation, catchErrors(addCard));
 
 vote.get("/all", catchErrors(getAll));
