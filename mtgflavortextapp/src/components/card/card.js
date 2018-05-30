@@ -9,7 +9,7 @@ export default class Card extends Component {
     loading: true,
     card: null,
     image: "/cardback.jpg",
-    error: false,
+    error: false
   };
 
   onClick = async () => {
@@ -18,9 +18,9 @@ export default class Card extends Component {
     this.setState({ fetching: true });
     try {
       await api.post(collector_number, set);
-    } catch(error) {
+    } catch (error) {
       this.setState({
-        error: false,
+        error: false
       });
     }
   };
@@ -54,21 +54,13 @@ export default class Card extends Component {
   };
 
   fetchData = async () => {
-    while (true) {
-      const data = await api.get("random");
-      const { result } = data;
+    const data = await api.get("random");
+    const { result } = data;
 
-      if (!result.flavor_text) {
-        continue;
-      }
-
-      this.setState({
-        fetching: false,
-        card: result
-      });
-
-      break;
-    }
+    this.setState({
+      fetching: false,
+      card: result
+    });
   };
 
   render() {

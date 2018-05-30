@@ -2,7 +2,9 @@ import React, { Component } from "react";
 
 import Card from "../../components/card";
 
+
 import './home.css';
+import ArrowHead from "../../components/arrowhead";
 
 export default class Home extends Component {
 
@@ -13,6 +15,7 @@ export default class Home extends Component {
           <Card />
           <Card />
         </div>
+        <ArrowHead />
       </div>
     );
   }

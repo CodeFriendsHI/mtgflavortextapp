@@ -30,5 +30,5 @@
 
 .appearActive {
   margin: 0;
-  transition: margin 1s ease-in;
+  transition: margin 1s linear;
 }
