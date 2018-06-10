@@ -1,0 +1,1 @@
+https://api.scryfall.com/cards/search?format=json&include_extras=false&order=name&page=1&q=ft%3A%2F.%2F&unique=cards
