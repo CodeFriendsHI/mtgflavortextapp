@@ -63,4 +63,5 @@ async function getCards() {
 module.exports = {
     addCard,
     getCards,
+    query,
 };

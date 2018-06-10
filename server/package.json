@@ -10,8 +10,10 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^5.0.1",
+    "es6-promise": "^4.2.4",
     "express": "^4.16.3",
     "express-validator": "^5.2.0",
+    "isomorphic-fetch": "^2.2.1",
     "node-fetch": "^2.1.2",
     "pg": "^7.4.3",
     "xss": "^0.3.8"
