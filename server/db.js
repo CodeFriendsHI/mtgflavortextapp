@@ -60,8 +60,36 @@ async function getCards() {
     return result;
 }
 
+/**
+ * get cardcount
+ * 
+ * @returns {Promise} promise representing the number of cards
+ */
+async function getCount() {
+  const sqlQuery = 'SELECT count(*) FROM cardstorage';
+
+  const result = await query(sqlQuery, []);
+
+  return result;
+}
+
+/**
+ * get random card
+ * 
+ * @returns {Promise} promise representing a random card object
+ */
+async function getRandom() {
+  const sqlQuery = 'SELECT * FROM cardstorage ORDER BY RANDOM() LIMIT 1';
+
+  const result = await query(sqlQuery, []);
+
+  return result;
+}
+
 module.exports = {
     addCard,
     getCards,
     query,
+    getCount,
+    getRandom,
 };

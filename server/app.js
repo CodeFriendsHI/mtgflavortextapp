@@ -3,9 +3,11 @@ require("dotenv").config();
 const express = require("express");
 
 const app = express();
+const random = require("./random");
 const vote = require("./vote");
 app.use(express.json());
 
+app.use("/random", random);
 app.use("/", vote);
 
 function notFoundHandler(req, res, next) {
